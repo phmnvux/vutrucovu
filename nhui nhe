@@ -5,6 +5,7 @@ map<char,int>pa;
 
 void doi(string& s)
 {
+    if(s[0]=='y')s[0]='i';
     if(s[0]=='g' && s[1]=='i' && pa[s[2]])s.erase(0,2);
     while(!pa[s[0]])s.erase(0,1);
 }
