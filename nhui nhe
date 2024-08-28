@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+#define ll long long
+using namespace std;
+map<char,int>pa;
+
+void doi(string& s)
+{
+    if(s[0]=='g' && s[1]=='i' && pa[s[2]])s.erase(0,2);
+    while(!pa[s[0]])s.erase(0,1);
+}
+void nhap()
+{
+    pa['a']=1;
+    pa['b']=0;
+    pa['c']=0;
+    pa['d']=0;
+    pa['e']=1;
+    pa['g']=0;
+    pa['h']=0;
+    pa['i']=1;
+    pa['k']=0;
+    pa['l']=0;
+    pa['m']=0;
+    pa['n']=0;
+    pa['o']=1;
+    pa['p']=0;
+    pa['q']=0;
+    pa['r']=0;
+    pa['s']=0;
+    pa['t']=0;
+    pa['u']=1;
+    pa['v']=0;
+    pa['x']=0;
+    pa['y']=1;
+}
+int main()
+{
+//    ios::sync_with_stdio(0);
+//    cin.tie(0);cout.tie(0);
+    nhap();
+    string s,w;
+    while(s!="lamdao")
+    {
+        getline(cin,s);
+        if(s=="lamdao")return 0;
+        stringstream ss(s);
+        while(ss>>w)
+        {
+            doi(w);
+            cout<<"nh"<<w<<' ';
+        }
+        cout<<'\n';
+    }
+}
