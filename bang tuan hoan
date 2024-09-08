@@ -1,0 +1,297 @@
+#include<bits/stdc++.h>
+#include<cctype>
+#define ll long long
+using namespace std;
+bool laso(string s)
+{
+    for(char i:s)
+        if (isdigit(i)) return 1;
+    return 0;
+}
+struct ngto
+{
+    string ten;
+    string kitu;
+    int sohieu;
+    float khoiluong;
+};
+
+
+map<std::string, ngto> bangtuanhoan={
+    {"h", {"Hydrogen", "H", 1, 1.008}},
+    {"he", {"Helium", "He", 2, 4.0026}},
+    {"li", {"Lithium", "Li", 3, 6.94}},
+    {"be", {"Beryllium", "Be", 4, 9.0122}},
+    {"b", {"Boron", "B", 5, 10.81}},
+    {"c", {"Carbon", "C", 6, 12.011}},
+    {"n", {"Nitrogen", "N", 7, 14.007}},
+    {"o", {"Oxygen", "O", 8, 15.999}},
+    {"f", {"Fluorine", "F", 9, 18.998}},
+    {"ne", {"Neon", "Ne", 10, 20.180}},
+    {"na", {"Sodium", "Na", 11, 22.990}},
+    {"mg", {"Magnesium", "Mg", 12, 24.305}},
+    {"al", {"Aluminium", "Al", 13, 26.982}},
+    {"si", {"Silicon", "Si", 14, 28.085}},
+    {"p", {"Phosphorus", "P", 15, 30.974}},
+    {"s", {"Sulfur", "S", 16, 32.06}},
+    {"cl", {"Chlorine", "Cl", 17, 35.45}},
+    {"ar", {"Argon", "Ar", 18, 39.948}},
+    {"k",{"Kali - Potasium", "K", 19, 39.0983}},
+    {"ca",{"Canxi - Casium", "Ca", 20, 40.078}},
+    {"sc",{"Scandium", "Sc", 21, 44.955912}},
+    {"ti",{"Titanium", "Ti", 22, 47.867}},
+    {"v",{"Vanadium", "V", 23, 50.9415}},
+    {"cr",{"Chromium", "Cr", 24, 51.9961}},
+    {"mn",{"Manganese", "Mn", 25, 54.938045}},
+    {"fe",{"Iron", "Fe", 26, 55.845}},
+    {"co",{"Cobalt", "Co", 27, 58.933195}},
+    {"ni",{"Nickel", "Ni", 28, 58.6934}},
+    {"cu",{"Copper", "Cu", 29, 63.546}},
+    {"zn",{"Zinc", "Zn", 30, 65.38}},
+    {"ga",{"Gallium", "Ga", 31, 69.723}},
+    {"ge",{"Germanium", "Ge", 32, 72.63}},
+    {"as",{"Arsenic", "As", 33, 74.92160}},
+    {"se",{"Selenium", "Se", 34, 78.96}},
+    {"br",{"Bromine", "Br", 35, 79.904}},
+    {"kr",{"Krypton", "Kr", 36, 83.798}},
+    {"rb",{"Rubidium", "Rb", 37, 85.4678}},
+    {"sr",{"Strontium", "Sr", 38, 87.62}},
+    {"y",{"Yttrium", "Y", 39, 88.90585}},
+    {"zr",{"Zirconium", "Zr", 40, 91.224}},
+    {"nb",{"Niobium", "Nb", 41, 92.90638}},
+    {"mo",{"Molybdenum", "Mo", 42, 95.96}},
+    {"tc",{"Technetium", "Tc", 43, 98}},
+    {"ru",{"Ruthenium", "Ru", 44, 101.07}},
+    {"rh",{"Rhodium", "Rh", 45, 102.90550}},
+    {"pd",{"Palladium", "Pd", 46, 106.42}},
+    {"ag",{"Silver", "Ag", 47, 107.8682}},
+    {"cd",{"Cadmium", "Cd", 48, 112.411}},
+    {"in",{"Indium", "In", 49, 114.818}},
+    {"sn",{"Tin", "Sn", 50, 118.710}},
+    {"sb",{"Antimony", "Sb", 51, 121.760}},
+    {"te",{"Tellurium", "Te", 52, 127.60}},
+    {"i",{"Iodine", "I", 53, 126.90447}},
+    {"xe",{"Xenon", "Xe", 54, 131.293}},
+    {"cs",{"Cesium", "Cs", 55, 132.90545196}},
+    {"ba",{"Barium", "Ba", 56, 137.327}},
+    {"la",{"Lanthanum", "La", 57, 138.90547}},
+    {"ce",{"Cerium", "Ce", 58, 140.116}},
+    {"pr",{"Praseodymium", "Pr", 59, 140.90766}},
+    {"nd",{"Neodymium", "Nd", 60, 144.242}},
+    {"pm",{"Promethium", "Pm", 61, 145}},
+    {"sm",{"Samarium", "Sm", 62, 150.36}},
+    {"eu",{"Europium", "Eu", 63, 151.964}},
+    {"gd",{"Gadolinium", "Gd", 64, 157.25}},
+    {"tb",{"Terbium", "Tb", 65, 158.92535}},
+    {"dy",{"Dysprosium", "Dy", 66, 162.500}},
+    {"ho",{"Holmium", "Ho", 67, 164.93033}},
+    {"er",{"Erbium", "Er", 68, 167.259}},
+    {"tm",{"Thulium", "Tm", 69, 168.93422}},
+    {"yb",{"Ytterbium", "Yb", 70, 173.04}},
+    {"lu",{"Lutetium", "Lu", 71, 174.967}},
+    {"hf",{"Hafnium", "Hf", 72, 178.49}},
+    {"ta",{"Tantalum", "Ta", 73, 180.94788}},
+    {"w",{"Tungsten", "W", 74, 183.84}},
+    {"re",{"Rhenium", "Re", 75, 186.207}},
+    {"os",{"Osmium", "Os", 76, 190.23}},
+    {"ir",{"Iridium", "Ir", 77, 192.217}},
+    {"pt",{"Platinum", "Pt", 78, 195.084}},
+    {"au",{"Gold", "Au", 79, 196.966569}},
+    {"hg",{"Mercury", "Hg", 80, 200.59}},
+    {"tl",{"Thallium", "Tl", 81, 204.3833}},
+    {"pb",{"Lead", "Pb", 82, 207.2}},
+    {"bi",{"Bismuth", "Bi", 83, 208.98040}},
+    {"po",{"Polonium", "Po",84, 209}},
+    {"At",{"Astatine", "At",85, 210}},
+    {"rn",{"Radon", "Rn",86, 222}},
+    {"fr",{"Francium", "Fr",87, 223}},
+    {"ra",{"Radium", "Ra",88, 226}},
+    {"ac",{"Actinium","Ac", 89, 227}},
+    {"th",{"Thorium", "Th",90, 232.04}},
+    {"th",{"Thorium", "Th", 90, 232.03806}},
+    {"pa",{"Protactinium", "Pa", 91, 231.03588}},
+    {"u",{"Uranium", "U", 92, 238.02891}},
+    {"np",{"Neptunium", "Np", 93, 237}},
+    {"pu",{"Plutonium", "Pu", 94, 244}},
+    {"am",{"Americium", "Am", 95, 243}},
+    {"cm",{"Curium", "Cm", 96, 247}},
+    {"bk",{"Berkelium", "Bk", 97, 247}},
+    {"cf",{"Californium", "Cf", 98, 251}},
+    {"es",{"Einsteinium", "Es", 99, 252}},
+    {"fm",{"Fermium", "Fm", 100, 257}},
+    {"md",{"Mendelevium", "Md", 101, 258}},
+    {"no",{"Nobelium", "No", 102, 259}},
+    {"lr",{"Lawrencium", "Lr", 103, 262}},
+    {"rf",{"Rutherfordium", "Rf", 104, 267}},
+    {"db",{"Dubnium", "Db", 105, 270}},
+    {"sg",{"Seaborgium", "Sg", 106, 271}},
+    {"bh",{"Bohrium", "Bh", 107, 270}},
+    {"hs",{"Hassium", "Hs", 108, 277}},
+    {"mt",{"Meitnerium", "Mt", 109, 276}},
+    {"ds",{"Darmstadtium", "Ds", 110, 281}},
+    {"rg",{"Roentgenium", "Rg", 111, 282}},
+    {"cn",{"Copernicium", "Cn", 112, 285}},
+    {"nh",{"Nihonium", "Nh", 113, 284}},
+    {"fl",{"Flerovium", "Fl", 114, 289}},
+    {"mc",{"Moscovium", "Mc", 115, 288}},
+    {"lv",{"Livermorium", "Lv", 116, 293}},
+    {"ts",{"Tennessine", "Ts", 117, 294}},
+    {"og",{"Oganesson", "Og", 118, 294}}
+};
+
+map<string,int>gocacid={
+    {"cl",1},
+    {"br",1},
+    {"f",1},
+    {"i",1},
+    {"no3",1},
+    {"no2",1},
+    {"co3",2},
+    {"so4",2},
+    {"so3",2},
+    {"po4",3},
+    {"po3",3},
+    {"s",2},
+    {"sio3",2}
+};
+
+void chinhta(string &s)
+{
+    for(char &i:s)
+        i=tolower(i);
+    int i = 0;
+    while (i < s.size())
+    {
+        if (i + 1 < s.size() && bangtuanhoan.find(s.substr(i, 2)) != bangtuanhoan.end())
+        {
+            s[i] = toupper(s[i]);
+            s[i+1] = tolower(s[i+1]);
+            i += 2;
+        }
+        else if (bangtuanhoan.find(s.substr(i, 1)) != bangtuanhoan.end())
+        {
+            s[i] = toupper(s[i]);
+            i += 1;
+        }
+        else
+        {
+            i += 1;
+        }
+    }
+}
+
+
+
+map<int, string> kimloai, phikim, akim, khitro;
+void phanloai(string s)
+{
+    for (const auto& pair : bangtuanhoan)
+    {
+        if(pair.second.sohieu==1 || (pair.second.sohieu>=6 &&pair.second.sohieu<=9) || (pair.second.sohieu>=15 &&pair.second.sohieu<=17) || (pair.second.sohieu>=34 &&pair.second.sohieu<=35) || pair.second.sohieu==53)
+            phikim[pair.second.sohieu]=pair.first;
+        if((pair.second.sohieu>=3 &&pair.second.sohieu<=4) || (pair.second.sohieu>=11 &&pair.second.sohieu<=13) || (pair.second.sohieu>=19 &&pair.second.sohieu<=31) || (pair.second.sohieu>=37 &&pair.second.sohieu<=50) || (pair.second.sohieu>=55 &&pair.second.sohieu<=83) || (pair.second.sohieu>=87 &&pair.second.sohieu<=116))
+            kimloai[pair.second.sohieu]=pair.first;
+        if(pair.second.sohieu==2 || pair.second.sohieu==10 || pair.second.sohieu==18 || pair.second.sohieu==36 || pair.second.sohieu==54 || pair.second.sohieu==86 || pair.second.sohieu==118)
+           khitro[pair.second.sohieu]=pair.first;
+        if(pair.second.sohieu==5 || pair.second.sohieu==14 || (pair.second.sohieu>=32 &&pair.second.sohieu<=33) || (pair.second.sohieu>=51 &&pair.second.sohieu<=52) || (pair.second.sohieu>=84 &&pair.second.sohieu<=85) || pair.second.sohieu==117)
+            akim[pair.second.sohieu]=pair.first;
+    }
+
+}
+bool kiemtra(string s)
+{
+        for(char &i:s)
+        i=tolower(i);
+            if (bangtuanhoan.find(s) != bangtuanhoan.end()) {
+        int sohieu = bangtuanhoan[s].sohieu;
+        if (kimloai.find(sohieu) != kimloai.end()) {
+            return 1;
+        } else if (phikim.find(sohieu) != phikim.end()) {
+            return 2;
+        } else if (akim.find(sohieu) != akim.end()) {
+            return 3;
+        } else if (khitro.find(sohieu) != khitro.end()) {
+            return 4;
+        }
+    }
+}
+bool checkbase(string ss)
+{
+    string s=ss;
+        for(int i=0;i<s.size();)
+    {
+        if(isdigit(s[i]))s.erase(i,1);
+        else if(s[i]=='(' || s[i]==')')s.erase(i,1);
+        else i++;
+    }
+    chinhta(s);
+    if(s.size()>2 && s.find("OH",s.size()-2)!= string::npos)
+        return 1;
+    return 0;
+}
+bool checkacid(string s)
+{
+    for(char &i:s)
+        i=tolower(i);
+    if(s=="h2o")return 0;
+        for(int i=0;i<s.size();)
+    if(s.size()>2 && s[0]=='h')
+        return 1;
+    return 0;
+}
+bool checkmuoi(string ss)
+{
+    string s=ss;
+    for(char &i:s)
+        i=tolower(i);
+    if((s.size()>2 && s.find("oh",s.size()-2)!= string::npos) || s[0]=='h')return 0;
+        for(int i=0;i<s.size();)
+    {
+        if(isdigit(s[i]))s.erase(i,1);
+        else if(s[i]=='(' || s[i]==')')s.erase(i,1);
+        else i++;
+    }
+    bool flag=0;
+    int i=0;
+    while (i < s.size())
+    {
+
+        if (i + 1 < s.size() && bangtuanhoan.find(s.substr(i, 2)) != bangtuanhoan.end())
+        {
+            phanloai(s.substr(i, 2));
+            if(kiemtra(s.substr(i, 2))==1)
+                flag=1;
+            if(gocacid.find(s.substr(i, s.size()))!=gocacid.end() && flag==1)
+                return 1;
+            else i += 2;
+        }
+        else if (bangtuanhoan.find(s.substr(i, 1)) != bangtuanhoan.end())
+        {
+            phanloai(s.substr(i, 1));
+            if(kiemtra(s.substr(i, 1))==1)
+                flag=1;
+            if(gocacid.find(s.substr(i, s.size()))!=gocacid.end() && flag==1)
+                return 1;
+            else i ++;
+        }
+        else
+        {
+            i ++;
+        }
+    }
+}
+
+int main()
+{
+
+    std::string s="lamdao";
+    while(s!="oilam")
+    {
+    cin >> s;
+    chinhta(s);
+        if(checkmuoi(s))cout<<s<<" is muoi"<<endl;
+        if(checkacid(s))cout<<s<<" is acid"<<endl;
+        if(checkbase(s))cout<<s<<" is base"<<endl;
+        if(s=="H2O")cout<<s<<" is nuoc"<<endl;
+    }
+}
