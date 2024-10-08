@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define oi ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+using namespace std;
+vector<int>nt(10000007,1);
+vector<int>ps(10000007,0);
+void lamsang()
+{
+    nt[1]=nt[0]=0;
+    for(int i=2;i*i<=nt.size();i++)
+        if(nt[i])
+            for(int j=i*i;j<=nt.size();j+=i)
+                nt[j]=0;
+    for(int i=1;i<=nt.size();i++)
+    {
+        ps[i]=ps[i-1];
+        if(nt[i])ps[i]+=i;
+    }
+}
+void intnt(ll l,ll r)
+{
+    cout<<ps[r]-ps[l-1]
+    <<'\n';
+}
+int main()
+{
+    oi
+    lamsang();
+    ll q,a,b;
+    cin>>q;
+    while(q--)
+    {
+        cin>>a>>b;
+        intnt(a,b);
+    }
+}
